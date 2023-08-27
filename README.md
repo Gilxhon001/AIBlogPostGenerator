@@ -1,0 +1,1 @@
+# Next JS & Open AI / AI BLOG POST GENERATOR
