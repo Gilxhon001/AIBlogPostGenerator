@@ -4,6 +4,7 @@ import { AppLayout } from "../../components/Layout";
 import clientPromise from "../../lib/mongodb";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHashtag } from "@fortawesome/free-solid-svg-icons";
+import { getAppProps } from "../../utils/getAppProps";
 
 export default function Post(props) {
   console.log("PROPS: ", props);
@@ -25,7 +26,7 @@ export default function Post(props) {
         </div>
 
         <div className="flex flex-wrap pt-2 gap-1">
-          {props.keywords.split(",").map((keyword, i) => (
+          {props.keywords?.split(",").map((keyword, i) => (
             <div key={i} className="p-2 rounded-full bg-slate-800 text-white">
               <FontAwesomeIcon icon={faHashtag} /> {keyword}
             </div>
@@ -50,14 +51,20 @@ Post.getLayout = function getLayout(page, pageProps) {
 
 export const getServerSideProps = withPageAuthRequired({
   async getServerSideProps(ctx) {
+    const props = await getAppProps(ctx);
+    return {
+      props,
+    };
     const userSession = await getSession(ctx.req, ctx.res);
     const client = await clientPromise;
     const db = client.db("BlogStandard");
-    const user = await db.collection("users").findOne({
+    const userCollection = db.collection("users");
+    const user = await userCollection.findOne({
       auth0Id: userSession.user.sub,
     });
 
-    const post = await db.collection("posts").findOne({
+    const postCollection = db.collection("posts");
+    const post = await postCollection.findOne({
       _id: new ObjectId(ctx.params.postId),
       userId: user._id,
     });
@@ -77,6 +84,7 @@ export const getServerSideProps = withPageAuthRequired({
         title: post.title,
         metaDescription: post.metaDescription,
         keywords: post.keywords,
+        ...props,
       },
     };
   },

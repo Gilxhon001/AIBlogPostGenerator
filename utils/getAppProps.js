@@ -7,7 +7,8 @@ export const getAppProps = async (ctx) => {
   const client = await clientPromise;
 
   const db = await client.db("BlogStandard");
-  const user = await client.db("users").findOne({
+  const userCollection = db.collection("users");
+  const user = await userCollection.findOne({
     auth0Id: userSession.user.sub,
   });
 
@@ -24,4 +25,13 @@ export const getAppProps = async (ctx) => {
       userId: user._id,
     })
     .toArray();
+
+  return {
+    availableTokens: user.availableTokens,
+    posts: posts.map(({ created, _id, userId, ...rest }) => ({
+      _id: _id.toString(),
+      created: created.toString(),
+      ...rest,
+    })),
+  };
 };
