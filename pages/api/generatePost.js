@@ -71,7 +71,8 @@ export default withApiAuthRequired(async function handler(req, res) {
       },
       {
         role: "user",
-        content: "Generate appropriate title tag text for the above blog post",
+        content:
+          "Generate appropriate title tag text for the above blog post as text",
       },
     ],
     temperature: 0,
@@ -97,7 +98,7 @@ export default withApiAuthRequired(async function handler(req, res) {
       {
         role: "user",
         content:
-          "Generate SEO-friendly meta description content for the above blog post",
+          "Generate SEO-friendly meta description content for the above blog post as text",
       },
     ],
     temperature: 0,

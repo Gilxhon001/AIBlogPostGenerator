@@ -7,7 +7,7 @@ import { faHashtag } from "@fortawesome/free-solid-svg-icons";
 import { getAppProps } from "../../utils/getAppProps";
 
 export default function Post(props) {
-  console.log("PROPS: ", props);
+  console.log("NEW PAGE PROPS: ", props);
 
   return (
     <div className="overflow-y-scroll h-screen">
@@ -52,12 +52,11 @@ Post.getLayout = function getLayout(page, pageProps) {
 export const getServerSideProps = withPageAuthRequired({
   async getServerSideProps(ctx) {
     const props = await getAppProps(ctx);
-    return {
-      props,
-    };
+
     const userSession = await getSession(ctx.req, ctx.res);
     const client = await clientPromise;
     const db = client.db("BlogStandard");
+
     const userCollection = db.collection("users");
     const user = await userCollection.findOne({
       auth0Id: userSession.user.sub,
