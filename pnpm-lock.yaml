@@ -17,9 +17,6 @@ dependencies:
   '@fortawesome/react-fontawesome':
     specifier: ^0.2.0
     version: 0.2.0(@fortawesome/fontawesome-svg-core@6.4.2)(react@18.2.0)
-  '@webdeveducation/next-verify-stripe':
-    specifier: ^1.0.1
-    version: 1.0.1
   fast-xml-parser:
     specifier: ^4.2.7
     version: 4.3.0
@@ -1427,10 +1424,6 @@ packages:
       '@typescript-eslint/types': 6.7.2
       eslint-visitor-keys: 3.4.3
     dev: true
-
-  /@webdeveducation/next-verify-stripe@1.0.1:
-    resolution: {integrity: sha512-iVvDQ1un0T86nl6Tfei4IXAWj35PF0gXo/XH5VCSHetqYOTT3U/2cTCYi2p7+B2TK6vO9Pqvo7sVaVmLJBgR+g==}
-    dev: false
 
   /acorn-jsx@5.3.2(acorn@8.10.0):
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}

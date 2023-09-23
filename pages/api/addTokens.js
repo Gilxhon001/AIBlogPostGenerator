@@ -1,30 +1,35 @@
 import { getSession } from "@auth0/nextjs-auth0";
-import clientPromise from "../../lib/mongodb";
+import { Stripe } from "stripe";
+
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
 export default async function handler(req, res) {
   const { user } = await getSession(req, res);
 
-  console.log("USER: ", user);
-
-  const client = await clientPromise;
-  const db = client.db("BlogStandard");
-
-  const userProfile = await db.collection("users").updateOne(
+  const lineItems = [
     {
-      auth0Id: user.sub,
+      price: process.env.STRIPE_PRODUCT_PRICE_ID,
+      quantity: 1,
     },
-    {
-      $inc: {
-        availableTokens: 10,
+  ];
+
+  const protocol =
+    process.env.NODE_ENV === "development" ? "http://" : "https://";
+  const host = req.headers.host;
+
+  const checkOutSession = await stripe.checkout.sessions.create({
+    line_items: lineItems,
+    mode: "payment",
+    success_url: `${protocol}${host}/success`,
+    payment_intent_data: {
+      metadata: {
+        sub: user.sub,
       },
-      $setOnInsert: {
-        auth0Id: user.sub,
-      },
     },
-    {
-      upsert: true,
+    metadata: {
+      sub: user.sub,
     },
-  );
+  });
 
-  res.status(200).json({ name: "John Doe" });
+  res.status(200).json({ session: checkOutSession });
 }
