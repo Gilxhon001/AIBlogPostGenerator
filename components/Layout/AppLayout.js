@@ -4,9 +4,30 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoins } from "@fortawesome/free-solid-svg-icons";
 import { Logo } from "../Logo";
+import { useContext, useEffect } from "react";
+import PostContext from "../../context/postContext";
 
-export const AppLayout = ({ children, availableTokens, posts, postId }) => {
+export const AppLayout = ({
+  children,
+  availableTokens,
+  posts: postsFromSSR,
+  postId,
+  postCreated,
+}) => {
   const { user } = useUser();
+
+  const { setPostsFromSSR, posts, getPosts, noMorePosts } =
+    useContext(PostContext);
+
+  useEffect(() => {
+    setPostsFromSSR(postsFromSSR);
+    if (postId) {
+      const exists = postsFromSSR.find((post) => post._id === postId);
+      if (!exists) {
+        getPosts({ getNewerPosts: true, lastPostDate: postCreated });
+      }
+    }
+  }, [postsFromSSR, setPostsFromSSR, postId, postCreated]);
 
   return (
     <div className="grid grid-cols-[300px_1fr] h-screen max-h-screen">
@@ -34,6 +55,17 @@ export const AppLayout = ({ children, availableTokens, posts, postId }) => {
               {post.topic}
             </Link>
           ))}
+
+          {!noMorePosts && (
+            <p
+              onClick={() => {
+                getPosts({ lastPostDate: posts[posts.length - 1].created });
+              }}
+              className="hover:underline text-slate-400 text-center cursor-pointer mt-4"
+            >
+              Load more posts
+            </p>
+          )}
         </div>
 
         <div className="bg-cyan-800 flex items-center gap-2 border-t border-t-black/50 h-20 px-2">
@@ -50,13 +82,13 @@ export const AppLayout = ({ children, availableTokens, posts, postId }) => {
               </div>
               <div className="flex-1">
                 <div className="font-bold">{user.email}</div>
-                <Link className="text-sm" href="api/auth/logout">
+                <Link className="text-sm" href="/api/auth/logout">
                   Logout
                 </Link>
               </div>
             </>
           ) : (
-            <Link href="api/auth/login">Login</Link>
+            <Link href="/api/auth/login">Login</Link>
           )}
         </div>
       </div>
