@@ -59,7 +59,7 @@ export const AppLayout = ({
           {!noMorePosts && (
             <p
               onClick={() => {
-                getPosts({ lastPostDate: posts[posts.length - 1].created });
+                getPosts({ lastPostDate: posts[posts.length - 1]?.created });
               }}
               className="hover:underline text-slate-400 text-center cursor-pointer mt-4"
             >
