@@ -1,6 +1,8 @@
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { AppLayout } from "../components/Layout";
 import { getAppProps } from "../utils/getAppProps";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCoins } from "@fortawesome/free-solid-svg-icons";
 
 export default function TokenTopup() {
   const handleClick = async () => {
@@ -20,9 +22,13 @@ export default function TokenTopup() {
       <div class="min-h-screen bg-gray-200 flex flex-wrap items-center justify-center dark:bg-slate-900">
         <div class="flex flex-col sm:flex-col lg:flex-row xl:flex-row md:flex-row justify-center items center container">
           <div class="py-12 sm:py-12 md:py-6 lg:py-6 xl:py-6 px-8 w-full md:max-w-min sm:w-full bg-white z-30 dark:bg-slate-800">
-            <h1 class="text-gray-500 font-semibold text-xl dark:text-gray-200">
-              100 Tokens
-            </h1>
+            <div className="flex gap-4 justify-center items-center">
+              <FontAwesomeIcon icon={faCoins} className="text-yellow-500" />
+              <h1 class="text-gray-500 font-semibold text-xl dark:text-gray-200">
+                {" "}
+                100 Tokens{" "}
+              </h1>
+            </div>
             <div class="text-center py-4 px-7">
               <h1 class="text-gray-700 text-4xl font-black dark:text-gray-50">
                 Coming Soon
@@ -40,9 +46,12 @@ export default function TokenTopup() {
             </button>
           </div>
           <div class="py-12 sm:py-12 md:py-6 lg:py-6 xl:py-6 px-8 w-full md:max-w-min sm:w-full bg-purple-500 transform scale-1 sm:scale-1 md:scale-105 lg:scale-105 xl:scale-105 z-40  shadow-none sm:shadow-none md:shadow-xl lg:shadow-xl xl:shadow-xl">
-            <h1 class="text-purple-200 font-semibold text-xl ">10 Tokens</h1>
+            <div className="flex gap-4 justify-center items-center">
+              <FontAwesomeIcon icon={faCoins} className="text-yellow-500" />
+              <h1 className="text-white font-semibold text-xl"> 10 Tokens </h1>
+            </div>{" "}
             <div class="text-center py-4 px-7">
-              <h1 class="text-white text-4xl font-black">$9.00</h1>
+              <h1 className="text-white text-4xl font-black">$9.00</h1>
               <p class="text-white text-opacity-50 mt-2">Price</p>
             </div>
             <div class="h-px bg-purple-400"></div>
@@ -61,9 +70,13 @@ export default function TokenTopup() {
             </button>
           </div>
           <div class="py-12 sm:py-12 md:py-6 lg:py-6 xl:py-6 px-8 w-full md:max-w-min sm:w-full bg-white z-30 dark:bg-slate-800">
-            <h1 class="text-gray-500 font-semibold text-xl dark:text-gray-200">
-              100 Tokens
-            </h1>
+            <div className="flex gap-4 justify-center items-center">
+              <FontAwesomeIcon icon={faCoins} className="text-yellow-500" />
+              <h1 className="text-gray-500 font-semibold text-xl dark:text-gray-200">
+                {" "}
+                1000 Tokens{" "}
+              </h1>
+            </div>
             <div class="text-center py-4 px-7">
               <h1 class="text-gray-700 text-4xl font-black dark:text-gray-50">
                 Coming Soon
