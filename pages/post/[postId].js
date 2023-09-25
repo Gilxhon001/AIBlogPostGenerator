@@ -34,30 +34,35 @@ export default function Post(props) {
   };
 
   return (
-    <div className="overflow-y-scroll h-screen">
+    <div className="overflow-y-scroll h-screen dark:bg-gray-900 dark:text-white">
       <div className="max-w-screen-sm mx-auto">
-        <div className="text-sm font-bold mt-6 p-2 bg-stone-200 rounded-sm">
+        <div className="text-sm font-bold mt-6 p-2 bg-stone-200 rounded-md dark:bg-gray-700">
           SEO title and meta description
         </div>
 
-        <div className="p-4 my-2 border border-stone-200 rounded-md">
-          <div className="text-blue-600 text-2xl font-bold">{props.title}</div>
+        <div className="p-4 my-2 border border-stone-200 rounded-md dark:border-gray-700">
+          <div className="text-blue-600 text-2xl font-bold dark:text-blue-400 ">
+            {props.title}
+          </div>
           <div className="mt-2">{props.metaDescription}</div>
         </div>
 
-        <div className="text-sm font-bold mt-6 p-2 bg-stone-200 rounded-sm">
+        <div className="text-sm font-bold mt-6 p-2 bg-stone-200 rounded-md dark:bg-gray-700">
           Keywords
         </div>
 
         <div className="flex flex-wrap pt-2 gap-1">
           {props.keywords?.split(",").map((keyword, i) => (
-            <div key={i} className="p-2 rounded-full bg-slate-800 text-white">
+            <div
+              key={i}
+              className="p-2 rounded-full bg-slate-800 text-white dark:bg-slate-300 dark:text-slate-700"
+            >
               <FontAwesomeIcon icon={faHashtag} /> {keyword}
             </div>
           ))}
         </div>
 
-        <div className="text-sm font-bold mt-6 p-2 bg-stone-200 rounded-sm">
+        <div className="text-sm font-bold mt-6 p-2 bg-stone-200 rounded-md dark:bg-gray-700">
           Blog Post
         </div>
 
@@ -74,19 +79,19 @@ export default function Post(props) {
             </button>
           ) : (
             <div>
-              <p className="p-2 bg-red-300 text-center">
+              <p className="p-2 bg-red-300 text-center dark:bg-red-800">
                 Are you sure u want to delete this post? This action is
                 irreversible
               </p>
               <div className="grid grid-cols-2 gap-2">
                 <button
-                  className="btn bg-stone-400 hover:bg-stone-600"
+                  className="btn bg-stone-400 hover:bg-stone-600 dark:bg-stone-600 dark:hover:bg-stone-500"
                   onClick={() => setShowConfirmDelete(false)}
                 >
                   Cancel
                 </button>
                 <button
-                  className="btn bg-red-600 hover:bg-red-700"
+                  className="btn bg-red-600 hover:bg-red-700 dark:hover:bg-red-500"
                   onClick={handleDeleteConfirm}
                 >
                   Confirm Delete
