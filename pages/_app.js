@@ -3,7 +3,7 @@ import { UserProvider } from "@auth0/nextjs-auth0/client";
 import { Roboto } from "next/font/google";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
-import { PostProvider } from "../context/postContext";
+import { PostsProvider } from "../context/postContext";
 
 config.autoAddCss = false;
 
@@ -17,11 +17,11 @@ function MyApp({ Component, pageProps }) {
   const getLayout = Component.getLayout || ((page) => page);
   return (
     <UserProvider>
-      <PostProvider>
+      <PostsProvider>
         <main className={`${roboto.variable} font-body`}>
           {getLayout(<Component {...pageProps} />, pageProps)}
         </main>
-      </PostProvider>
+      </PostsProvider>
     </UserProvider>
   );
 }

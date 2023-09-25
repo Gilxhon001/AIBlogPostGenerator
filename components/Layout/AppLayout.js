@@ -3,11 +3,11 @@ import Link from "next/link";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoins } from "@fortawesome/free-solid-svg-icons";
-import { Logo } from "../Logo";
 import { useContext, useEffect } from "react";
-import PostContext from "../../context/postContext";
+import PostsContext from "../../context/postContext";
+import Logo from "./Logo";
 
-export const AppLayout = ({
+const AppLayout = ({
   children,
   availableTokens,
   posts: postsFromSSR,
@@ -17,7 +17,7 @@ export const AppLayout = ({
   const { user } = useUser();
 
   const { setPostsFromSSR, posts, getPosts, noMorePosts } =
-    useContext(PostContext);
+    useContext(PostsContext);
 
   useEffect(() => {
     setPostsFromSSR(postsFromSSR);
@@ -27,7 +27,7 @@ export const AppLayout = ({
         getPosts({ getNewerPosts: true, lastPostDate: postCreated });
       }
     }
-  }, [postsFromSSR, setPostsFromSSR, postId, postCreated]);
+  }, [postsFromSSR, setPostsFromSSR, postId, postCreated, getPosts]);
 
   return (
     <div className="grid grid-cols-[300px_1fr] h-screen max-h-screen">
@@ -59,7 +59,7 @@ export const AppLayout = ({
           {!noMorePosts && (
             <p
               onClick={() => {
-                getPosts({ lastPostDate: posts[posts.length - 1]?.created });
+                getPosts({ lastPostDate: posts[posts.length - 1].created });
               }}
               className="hover:underline text-slate-400 text-center cursor-pointer mt-4"
             >
@@ -96,3 +96,5 @@ export const AppLayout = ({
     </div>
   );
 };
+
+export default AppLayout;

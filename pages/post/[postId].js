@@ -1,6 +1,5 @@
 import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { ObjectId } from "mongodb";
-import { AppLayout } from "../../components/Layout";
 import clientPromise from "../../lib/mongodb";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHashtag } from "@fortawesome/free-solid-svg-icons";
@@ -8,6 +7,7 @@ import { getAppProps } from "../../utils/getAppProps";
 import { useContext, useState } from "react";
 import { useRouter } from "next/router";
 import PostContext from "../../context/postContext";
+import AppLayout from "../../components/Layout/AppLayout";
 
 export default function Post(props) {
   console.log("PROPS: ", props);
@@ -28,7 +28,7 @@ export default function Post(props) {
       const json = await response.json();
       if (json.success) {
         deletePost(props.id);
-        router.replace(`/post/new`);
+        await router.replace(`/post/new`);
       }
     } catch (e) {}
   };

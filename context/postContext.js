@@ -1,9 +1,8 @@
-import { createContext, useCallback, useReducer, useState } from "react";
-import PostContext from "./postContext";
+import React, { useCallback, useReducer, useState } from "react";
 
-const postContext = createContext({});
+const PostsContext = React.createContext({});
 
-export default postContext;
+export default PostsContext;
 
 function postsReducer(state, action) {
   switch (action.type) {
@@ -17,23 +16,21 @@ function postsReducer(state, action) {
       });
       return newPosts;
     }
-
     case "deletePost": {
       const newPosts = [];
       state.forEach((post) => {
-        if (post._id === action.postId) {
-          newPosts.pop(post);
+        if (post._id !== action.postId) {
+          newPosts.push(post);
         }
       });
       return newPosts;
     }
-
     default:
       return state;
   }
 }
 
-export const PostProvider = ({ children }) => {
+export const PostsProvider = ({ children }) => {
   const [posts, dispatch] = useReducer(postsReducer, []);
   const [noMorePosts, setNoMorePosts] = useState(false);
 
@@ -53,7 +50,7 @@ export const PostProvider = ({ children }) => {
 
   const getPosts = useCallback(
     async ({ lastPostDate, getNewerPosts = false }) => {
-      const result = await fetch("/api/getPosts", {
+      const result = await fetch(`/api/getPosts`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -62,8 +59,6 @@ export const PostProvider = ({ children }) => {
       });
       const json = await result.json();
       const postsResult = json.posts || [];
-      console.log("POST RESULT:", postsResult);
-
       if (postsResult.length < 5) {
         setNoMorePosts(true);
       }
@@ -76,10 +71,10 @@ export const PostProvider = ({ children }) => {
   );
 
   return (
-    <PostContext.Provider
+    <PostsContext.Provider
       value={{ posts, setPostsFromSSR, getPosts, noMorePosts, deletePost }}
     >
       {children}
-    </PostContext.Provider>
+    </PostsContext.Provider>
   );
 };

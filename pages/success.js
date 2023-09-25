@@ -1,6 +1,6 @@
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
-import { AppLayout } from "../components/Layout";
 import { getAppProps } from "../utils/getAppProps";
+import AppLayout from "../components/Layout/AppLayout";
 
 export default function Success() {
   return (

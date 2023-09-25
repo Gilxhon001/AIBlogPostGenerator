@@ -26,5 +26,7 @@ export default withApiAuthRequired(async function handler(req, res) {
       .toArray();
 
     res.status(200).json({ posts });
-  } catch (e) {}
+  } catch (e) {
+    console.log(e);
+  }
 });
