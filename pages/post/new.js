@@ -36,7 +36,7 @@ export default function NewPost(props) {
   };
 
   return (
-    <div className="h-full overflow-hidden">
+    <div className="h-full overflow-hidden dark:bg-gray-900">
       {generating ? (
         <div className="text-green-500 flex flex-col justify-center items-center h-full w-full animate-pulse ">
           <FontAwesomeIcon icon={faCog} className="text-8xl fa-spin" />
@@ -46,14 +46,14 @@ export default function NewPost(props) {
         <div className="w-full h-full flex flex-col overflow-auto">
           <form
             onSubmit={handleSubmit}
-            className="m-auto w-full max-w-screen-sm bg-slate-100 p-4 rounded-md shadow-xl border border-slate-200 shadow-slate-200"
+            className="m-auto w-full max-w-screen-sm bg-slate-100 p-4 rounded-md shadow-xl border border-slate-200 shadow-slate-200 dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white dark:shadow-slate-800"
           >
             <div>
               <label>
                 <strong>Generate a blog post on the topic of:</strong>
               </label>
               <textarea
-                className="resize-none border border-slate-500 w-full block my-2 px-4 py-2 rounded-sm"
+                className="resize-none border border-slate-500 w-full block my-2 px-4 py-2 rounded-sm dark:bg-gray-700 dark:text-white"
                 value={topic}
                 onChange={(e) => setTopic(e.target.value)}
                 maxLength={80}
@@ -64,7 +64,7 @@ export default function NewPost(props) {
                 <strong>Targeting the following keywords:</strong>
               </label>
               <textarea
-                className="resize-none border border-slate-500 w-full block my-2 px-4 py-2 rounded-sm"
+                className="resize-none border border-slate-500 w-full block my-2 px-4 py-2 rounded-sm dark:bg-gray-700 dark:text-white"
                 value={keywords}
                 onChange={(e) => setKeywords(e.target.value)}
                 maxLength={80}

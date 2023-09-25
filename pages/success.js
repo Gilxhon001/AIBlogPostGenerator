@@ -4,8 +4,8 @@ import { getAppProps } from "../utils/getAppProps";
 
 export default function Success() {
   return (
-    <div className="h-full flex justify-center items-center w-full gap-4 ">
-      <p className=" button text-4xl rounded border border-sky-400 p-3">
+    <div className="h-full flex justify-center items-center w-full gap-4 dark:bg-gray-900">
+      <p className="text-gray-900 text-4xl p-3 dark:text-white">
         Thank you for your purchase!
       </p>
       <span className="relative flex h-3 w-3">
